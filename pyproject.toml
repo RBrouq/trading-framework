@@ -1,0 +1,27 @@
+[project]
+name = "trading-framework"
+version = "0.1.0"
+description = "Framework modulaire pour trading algorithmique avec Alpaca"
+authors = [{ name = "Richard BROUQUIER" }]
+requires-python = ">=3.13"
+
+dependencies = [
+    "pandas==2.3.1",
+    "numpy==2.3.1",
+    "matplotlib==3.10.3",
+    "scipy==1.16.0",
+    "tqdm==4.67.1",
+    "ta==0.11.0",
+    "loguru==0.7.3",
+    "joblib==1.5.1",
+    "alpaca-trade-api==3.2.0",
+    "python-dotenv==1.1.1"
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = ["trading_framework"]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"

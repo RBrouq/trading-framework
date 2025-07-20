@@ -1,0 +1,16 @@
+Metadata-Version: 2.4
+Name: trading-framework
+Version: 0.1.0
+Summary: Framework modulaire pour trading algorithmique avec Alpaca
+Author: Richard BROUQUIER
+Requires-Python: >=3.13
+Requires-Dist: pandas==2.3.1
+Requires-Dist: numpy==2.3.1
+Requires-Dist: matplotlib==3.10.3
+Requires-Dist: scipy==1.16.0
+Requires-Dist: tqdm==4.67.1
+Requires-Dist: ta==0.11.0
+Requires-Dist: loguru==0.7.3
+Requires-Dist: joblib==1.5.1
+Requires-Dist: alpaca-trade-api==3.2.0
+Requires-Dist: python-dotenv==1.1.1

@@ -1,0 +1,10 @@
+pandas==2.3.1
+numpy==2.3.1
+matplotlib==3.10.3
+scipy==1.16.0
+tqdm==4.67.1
+ta==0.11.0
+loguru==0.7.3
+joblib==1.5.1
+alpaca-trade-api==3.2.0
+python-dotenv==1.1.1

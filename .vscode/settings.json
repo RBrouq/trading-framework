@@ -1,0 +1,13 @@
+{
+  // Interpréteur Python du venv
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
+
+  // Active automatiquement l’environnement dans le terminal intégré
+  "python.terminal.activateEnvironment": true,
+
+  // Formatage et linting
+  "python.formatting.provider": "black",
+  "editor.formatOnSave": true,
+  "python.linting.flake8Enabled": true,
+  "python.linting.mypyEnabled": true
+}
