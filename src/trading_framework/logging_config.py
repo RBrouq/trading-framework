@@ -1,38 +1,40 @@
+# logging_config.py
+# -*- coding: utf-8 -*-
 """
-logging_config.py
-
 Configuration centralisée du logging pour le Trading Framework.
 Crée un dossier de logs utilisateur, configure un RotatingFileHandler,
 et propose une intégration transparente avec loguru si installé.
 """
+from __future__ import annotations
 
 import logging
 import os
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
+from types import FrameType
+from typing import Optional, Union
 
-# Tentative d'intégration à loguru
+# Vérifie la disponibilité de loguru pour interconnexion
 try:
-    from loguru import logger as _loguru_logger
+    from loguru import logger as _loguru_logger  # type: ignore[import]
 
-    _HAS_LOGURU = True
+    _HAS_LOGURU: bool = True
 except ImportError:
     _HAS_LOGURU = False
 
 
 class InterceptHandler(logging.Handler):
     """
-    Handler pour rediriger les logs stdlib vers loguru.
+    Redirige les logs du module `logging` vers loguru si disponible.
     """
 
     def emit(self, record: logging.LogRecord) -> None:
         if _HAS_LOGURU:
-            # Récupère le niveau loguru correspondant
-            level = record.levelno
-            frame = logging.currentframe()
-            depth = 2
-            # Monte dans la pile pour localiser l'appelant
-            while frame and frame.f_code.co_filename == logging.__file__:
+            level: int = record.levelno
+            frame: Optional[FrameType] = logging.currentframe()
+            depth: int = 2
+            # Recherche l'appelant hors logging internals
+            while frame is not None and frame.f_code.co_filename:
                 frame = frame.f_back
                 depth += 1
             _loguru_logger.opt(depth=depth, exception=record.exc_info).log(
@@ -43,8 +45,8 @@ class InterceptHandler(logging.Handler):
 
 
 def configure(
-    level: int = None,
-    log_dir: Path | str = None,
+    level: Optional[int] = None,
+    log_dir: Optional[Union[Path, str]] = None,
     log_file_name: str = "framework.log",
     max_bytes: int = 5_000_000,
     backup_count: int = 5,
@@ -54,67 +56,62 @@ def configure(
     Initialise et configure le logging centralisé.
 
     Args:
-        level: Niveau de log (logging.DEBUG, INFO...). Si None, lit
-        TF_LOG_LEVEL ou INFO.
-        log_dir: Dossier de stockage des fichiers de log. Si None, utilise
-          ~/.trading_framework/logs.
-        log_file_name: Nom du fichier de log tournant.
+        level: Niveau de log (logging.DEBUG, INFO...).
+            Si None => lit la variable d'env TF_LOG_LEVEL ou INFO.
+        log_dir: Dossier de stockage des logs.
+            Si None => ~/.trading_framework/logs.
+        log_file_name: Nom du fichier tournant.
         max_bytes: Taille max d'un fichier avant rotation.
-        backup_count: Nombre de fichiers de backup conservés.
-        use_loguru: Active la redirection des logs standard vers loguru si
-        installé.
+        backup_count: Nombre de backups.
+        use_loguru: Active loguru en interceptant stdlib.
     """
-    # Niveau par défaut via variable d'environnement
+    # Niveau par défaut
     if level is None:
-        lvl_name = os.getenv("TF_LOG_LEVEL", "INFO").upper()
-        level = getattr(logging, lvl_name, logging.INFO)
+        env_level: str = os.getenv("TF_LOG_LEVEL", "INFO").upper()
+        level = getattr(logging, env_level, logging.INFO)
 
-    # Chemin du dossier de logs
+    # Détermine et crée le dossier
+    log_path: Path
     if log_dir is None:
-        log_dir = Path.home() / ".trading_framework" / "logs"
+        log_path = Path.home() / ".trading_framework" / "logs"
     else:
-        log_dir = Path(log_dir)
-    log_dir.mkdir(parents=True, exist_ok=True)
+        log_path = Path(log_dir)
+    log_path.mkdir(parents=True, exist_ok=True)
 
-    # Handler tournant
-    handler = RotatingFileHandler(
-        filename=log_dir / log_file_name,
+    # Rotating handler
+    rotating: RotatingFileHandler = RotatingFileHandler(
+        filename=log_path / log_file_name,
         maxBytes=max_bytes,
         backupCount=backup_count,
         encoding="utf-8",
     )
-    formatter = logging.Formatter(
-        "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s"
-    )
-    handler.setFormatter(formatter)
+    fmt = logging.Formatter("%(asctime)s | %(levelname)-8s | %(name)s")
+    rotating.setFormatter(fmt)
 
-    # Logger racine
+    # Configure logger racine
     root = logging.getLogger()
     root.setLevel(level)
 
-    # Nettoie les handlers existants de même type
     if use_loguru and _HAS_LOGURU:
-        # Intercepter les logs stdlib vers loguru
-        intercept = InterceptHandler()
-        intercept.setLevel(level)
+        # Intercepte les handlers stdlib
+        interceptor = InterceptHandler()
+        interceptor.setLevel(level)
+        # Remplace les RotatingFileHandler existants
         root.handlers = [
             h for h in root.handlers if not isinstance(h, RotatingFileHandler)
         ]
-        root.addHandler(intercept)
-    else:
-        # Empêche duplication de handlers RotatingFileHandler
-        if not any(isinstance(h, RotatingFileHandler) for h in root.handlers):
-            root.addHandler(handler)
-
-    # Si loguru est présent et souhaité, configure son handler
-    if use_loguru and _HAS_LOGURU:
-        # Optionnel: supprime handlers par défaut de loguru
+        root.addHandler(interceptor)
+        # Configure loguru séparément
         _loguru_logger.remove()
         _loguru_logger.add(
-            log_dir / f"{log_file_name}.loguru",
+            log_path / f"{log_file_name}.loguru",
             rotation=max_bytes,
             retention=backup_count,
             level=level,
             format="{time} | {level} | {name} | {message}",
             serialize=False,
         )
+    else:
+        # Ajoute le handler RotatingFileHandler s'il n'existe pas
+        if not any(isinstance(h, RotatingFileHandler) for h in root.handlers):
+            root.addHandler(rotating)

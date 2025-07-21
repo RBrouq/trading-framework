@@ -12,4 +12,4 @@ trim_trailing_whitespace = true
 trim_trailing_whitespace = false
 
 [*.py]
-max_line_length = 88
+max_line_length = 79
