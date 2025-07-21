@@ -8,6 +8,7 @@ loguru==0.7.3
 joblib==1.5.1
 alpaca-trade-api==3.2.0
 python-dotenv==1.1.1
+pip-tools==7.4.1
 
 [dev]
 black==25.1.0
