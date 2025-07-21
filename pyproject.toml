@@ -45,7 +45,7 @@ target-version = ['py311']
 [tool.ruff]
 line-length = 79
 select = ["E", "F", "I", "UP", "B", "C"]
-extend-ignore = ["E203", "W503"]
+extend-ignore = ["E203"]
 exclude = ["__pycache__", "build", "dist", ".venv", ".git"]
 
 [tool.mypy]
