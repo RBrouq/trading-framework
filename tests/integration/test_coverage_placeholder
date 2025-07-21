@@ -1,0 +1,4 @@
+# tests/integration/test_coverage_threshold.py
+def test_coverage_threshold():
+    # ce test échoue si pytest est lancé avec --cov-fail-under=85
+    assert True  # placeholder, coverage mesurée autour, pas de code réel

@@ -42,3 +42,6 @@ dev = [
     "bump2version==1.0.1",
     "pip-audit==2.9.0"
 ]
+
+[project.scripts]
+run-strategy = "trading_framework.__main__:main"
