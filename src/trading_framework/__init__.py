@@ -1,5 +1,7 @@
 __version__ = "0.1.0"
 
-from .logging_config import configure
 
-configure()
+def init_logging(level: int = 20) -> None:  # logging.INFO
+    from .logging_config import configure
+
+    configure(level)

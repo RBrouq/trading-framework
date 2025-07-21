@@ -1,10 +1,10 @@
 from loguru import logger
 
-from trading_framework.logging_config import configure_logging
+from trading_framework.logging_config import configure
 
 
 def main() -> None:
-    configure_logging()
+    configure()
     logger.info("Démarrage du framework…")
     # …
 

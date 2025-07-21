@@ -21,8 +21,7 @@ dependencies = [
 ]
 
 [tool.setuptools]
-package-dir = {"" = "src"}
-packages = ["trading_framework"]
+packages = { find = { where = ["src"] } }
 
 [tool.bumpversion]
 current_version = "0.1.0"
@@ -37,8 +36,16 @@ replace = 'version = "{new_version}"'
 search = '__version__ = "{current_version}"'
 replace = '__version__ = "{new_version}"'
 
+[tool.ruff]
+select = ["E","F","I","N","UP"]
+line-length = 100
+
+[tool.mypy]
+strict = true
+python_version = "3.13"
+
 [build-system]
-requires = ["setuptools", "wheel"]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project.optional-dependencies]
