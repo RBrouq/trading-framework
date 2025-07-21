@@ -39,5 +39,6 @@ dev = [
     "pytest-cov==6.2.1",
     "pip-tools==7.4.1",
     "pip-autoremove==0.10.0",
-    "bump2version==1.0.1"
+    "bump2version==1.0.1",
+    "pip-audit==2.9.0"
 ]
