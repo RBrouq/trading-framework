@@ -7,3 +7,7 @@ def main() -> None:
     configure_logging()
     logger.info("Démarrage du framework…")
     # …
+
+
+if __name__ == "__main__":
+    main()

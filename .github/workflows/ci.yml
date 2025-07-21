@@ -45,7 +45,5 @@ jobs:
             --maxfail=1 \
             --disable-warnings \
             --cov=trading_framework \
-            --cov-source=src/trading_framework \
             --cov-report=term-missing \
             --cov-fail-under=85 -q
-
