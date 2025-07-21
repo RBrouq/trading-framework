@@ -1,10 +1,10 @@
 # logging_config.py
-# -*- coding: utf-8 -*-
 """
 Configuration centralisée du logging pour le Trading Framework.
 Crée un dossier de logs utilisateur, configure un RotatingFileHandler,
 et propose une intégration transparente avec loguru si installé.
 """
+
 from __future__ import annotations
 
 import logging
@@ -12,11 +12,10 @@ import os
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
 from types import FrameType
-from typing import Optional, Union
 
 # Vérifie la disponibilité de loguru pour interconnexion
 try:
-    from loguru import logger as _loguru_logger  # type: ignore[import]
+    from loguru import logger as _loguru_logger
 
     _HAS_LOGURU: bool = True
 except ImportError:
@@ -31,7 +30,7 @@ class InterceptHandler(logging.Handler):
     def emit(self, record: logging.LogRecord) -> None:
         if _HAS_LOGURU:
             level: int = record.levelno
-            frame: Optional[FrameType] = logging.currentframe()
+            frame: FrameType | None = logging.currentframe()
             depth: int = 2
             # Recherche l'appelant hors logging internals
             while (
@@ -48,8 +47,8 @@ class InterceptHandler(logging.Handler):
 
 
 def configure(
-    level: Optional[int] = None,
-    log_dir: Optional[Union[Path, str]] = None,
+    level: int | None = None,
+    log_dir: Path | str | None = None,
     log_file_name: str = "framework.log",
     max_bytes: int = 5_000_000,
     backup_count: int = 5,

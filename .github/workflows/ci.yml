@@ -31,8 +31,11 @@ jobs:
       - name: Check formatting with Black
         run: black . --check --line-length=79
 
-      - name: Lint & auto-fix with Ruff
-        run: ruff check . --exit-zero
+      - name: Fix issues with Ruff
+        run: ruff check . --fix
+
+      - name: Verify linting with Ruff
+        run: ruff check .
 
       - name: Type check with mypy
         run: mypy src/trading_framework
