@@ -1,6 +1,6 @@
 [project]
 name = "trading-framework"
-version = "0.1.1"
+version = "1.0.0"
 description = "Framework modulaire pour trading algorithmique avec Alpaca"
 authors = [{ name = "Richard BROUQUIER", email = "brouquier57@gmail.com" }]
 readme = "README.md"
