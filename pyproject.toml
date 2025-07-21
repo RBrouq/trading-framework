@@ -25,15 +25,17 @@ packages = { find = { where = ["src"] } }
 
 [tool.bumpversion]
 current_version = "0.1.0"
-commit = true
-tag = true
+commit          = true
+tag             = true
 
-["tool.bumpversion.file:pyproject.toml"]
-search = 'version = "{current_version}"'
+[tool.bumpversion.file]
+
+[tool.bumpversion.file."pyproject.toml"]
+search  = 'version = "{current_version}"'
 replace = 'version = "{new_version}"'
 
-["tool.bumpversion.file:src/trading_framework/__init__.py"]
-search = '__version__ = "{current_version}"'
+[tool.bumpversion.file."src/trading_framework/__init__.py"]
+search  = '__version__ = "{current_version}"'
 replace = '__version__ = "{new_version}"'
 
 [tool.black]
@@ -41,20 +43,17 @@ line-length = 79       # ou 100, 120… selon votre préférence
 target-version = ['py311']
 
 [tool.isort]
-profile = "black"         # pour une intégration cohérente si vous utilisez aussi Black
-line_length = 79         # choisissez la longueur max souhaitée
+profile = "black"
+line_length = 79
 multi_line_output = 3
 include_trailing_comma = true
 
 [tool.flake8]
 max-line-length = 79
-extend-ignore = E203, W503   # pour éviter les conflits Black-style
-exclude = 
-    .git,
-    __pycache__,
-    build,
-    dist,
-    .venv
+# Flake8 attend une liste de codes, pas du texte séparé par des virgules :
+extend-ignore = ["E203", "W503"]
+# Exclure via un array TOML :
+exclude = [".git", "__pycache__", "build", "dist", ".venv"]
 
 [tool.mypy]
 strict = true
