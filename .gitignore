@@ -1,0 +1,20 @@
+# Environnement virtuel
+.venv/
+
+# Fichiers secrets
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Métadonnées de packaging
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
