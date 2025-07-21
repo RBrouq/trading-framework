@@ -48,7 +48,6 @@ select = ["E", "F", "I", "UP", "B", "C"]
 extend-ignore = ["E203", "W503"]
 exclude = ["__pycache__", "build", "dist", ".venv", ".git"]
 
-
 [tool.mypy]
 strict = true
 python_version = "3.13"
@@ -72,7 +71,7 @@ dev = [
     "pip-audit==2.9.0",
     "mkdocs==1.6.1",
     "mkdocs-material==9.6.15",
-    "ruff"==v0.12.4"
+    "ruff==v0.12.4"
 ]
 
 [project.scripts]
