@@ -59,9 +59,8 @@ build-backend = "setuptools.build_meta"
 [project.optional-dependencies]
 dev = [
     "black==25.1.0",
-    "isort==6.0.1",
-    "flake8==7.3.0",
     "mypy==1.17.0",
+    "ruff==v0.12.4",
     "pre-commit==4.2.0",
     "pytest==8.4.1",
     "pytest-cov==6.2.1",
@@ -70,9 +69,20 @@ dev = [
     "bump2version==1.0.1",
     "pip-audit==2.9.0",
     "mkdocs==1.6.1",
-    "mkdocs-material==9.6.15",
-    "ruff==v0.12.4"
+    "mkdocs-material==9.6.15"
 ]
 
 [project.scripts]
 run-strategy = "trading_framework.__main__:main"
+
+[tool.mypy]
+ignore_missing_imports = true
+disallow_untyped_defs = false
+
+[[tool.mypy.overrides]]
+module = "trading_framework.*"
+disallow_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
