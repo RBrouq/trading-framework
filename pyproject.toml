@@ -49,8 +49,19 @@ extend-ignore = ["E203"]
 exclude = ["__pycache__", "build", "dist", ".venv", ".git"]
 
 [tool.mypy]
-strict = true
-python_version = "3.13"
+ignore_missing_imports = true
+disallow_untyped_defs = false
+python_version = "3.11"
+warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+module = "trading_framework.*"
+disallow_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+
 
 [build-system]
 requires = ["setuptools"]
@@ -74,15 +85,3 @@ dev = [
 
 [project.scripts]
 run-strategy = "trading_framework.__main__:main"
-
-[tool.mypy]
-ignore_missing_imports = true
-disallow_untyped_defs = false
-
-[[tool.mypy.overrides]]
-module = "trading_framework.*"
-disallow_untyped_defs = true
-
-[[tool.mypy.overrides]]
-module = "tests.*"
-disallow_untyped_defs = false
