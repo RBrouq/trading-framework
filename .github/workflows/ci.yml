@@ -27,15 +27,13 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -e .[dev]
-          
+
       - name: Check formatting with Black
         run: black . --check --line-length=79
 
-      - name: Check imports with isort
-        run: isort . --check-only --profile=black --line-length=79
+      - name: Lint & auto-fix with Ruff
+        run: ruff . --exit-zero
 
-      - name: Lint code with Flake8
-        run: flake8 . --max-line-length=79
       - name: Type check with mypy
         run: mypy src/trading_framework
 

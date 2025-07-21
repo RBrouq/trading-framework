@@ -39,21 +39,15 @@ search  = '__version__ = "{current_version}"'
 replace = '__version__ = "{new_version}"'
 
 [tool.black]
-line-length = 79       # ou 100, 120… selon votre préférence
+line-length = 79
 target-version = ['py311']
 
-[tool.isort]
-profile = "black"
-line_length = 79
-multi_line_output = 3
-include_trailing_comma = true
-
-[tool.flake8]
-max-line-length = 79
-# Flake8 attend une liste de codes, pas du texte séparé par des virgules :
+[tool.ruff]
+line-length = 79
+select = ["E", "F", "I", "UP", "B", "C"]
 extend-ignore = ["E203", "W503"]
-# Exclure via un array TOML :
-exclude = [".git", "__pycache__", "build", "dist", ".venv"]
+exclude = ["__pycache__", "build", "dist", ".venv", ".git"]
+
 
 [tool.mypy]
 strict = true
@@ -77,7 +71,8 @@ dev = [
     "bump2version==1.0.1",
     "pip-audit==2.9.0",
     "mkdocs==1.6.1",
-    "mkdocs-material==9.6.15"
+    "mkdocs-material==9.6.15",
+    "ruff"==v0.12.4"
 ]
 
 [project.scripts]
