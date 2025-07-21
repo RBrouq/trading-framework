@@ -45,12 +45,3 @@ dev = [
 
 [project.scripts]
 run-strategy = "trading_framework.__main__:main"
-
-[tool.mypy]
-plugins = []
-ignore_missing_imports = true
-strict = true
-
-[tool.mypy."trading_framework.*"]
-# maintenant que tu as py.typed, tu peux activer l'analyse complète
-disallow_untyped_defs = true

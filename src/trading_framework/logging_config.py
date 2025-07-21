@@ -3,7 +3,7 @@ import sys
 from loguru import logger
 
 
-def configure_logging(log_file: str = "logs/trading.log"):
+def configure_logging(log_file: str = "logs/trading.log") -> None:
     # supprime le handler par défaut
     logger.remove()
     # console : INFO et plus

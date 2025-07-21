@@ -4,7 +4,7 @@ from loguru import logger
 from trading_framework.logging_config import configure_logging
 
 
-def test_configure_logging(tmp_path, capsys):
+def test_configure_logging(tmp_path, capsys) -> None:
     log_file = tmp_path / "app.log"
     configure_logging(str(log_file))
     logger.debug("debug-msg")
