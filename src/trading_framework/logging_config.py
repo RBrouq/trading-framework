@@ -34,7 +34,10 @@ class InterceptHandler(logging.Handler):
             frame: Optional[FrameType] = logging.currentframe()
             depth: int = 2
             # Recherche l'appelant hors logging internals
-            while frame is not None and frame.f_code.co_filename:
+            while (
+                frame is not None
+                and frame.f_code.co_filename == logging.__file__
+            ):
                 frame = frame.f_back
                 depth += 1
             _loguru_logger.opt(depth=depth, exception=record.exc_info).log(
@@ -85,7 +88,9 @@ def configure(
         backupCount=backup_count,
         encoding="utf-8",
     )
-    fmt = logging.Formatter("%(asctime)s | %(levelname)-8s | %(name)s")
+    fmt = logging.Formatter(
+        "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s"
+    )
     rotating.setFormatter(fmt)
 
     # Configure logger racine

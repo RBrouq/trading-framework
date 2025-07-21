@@ -38,7 +38,11 @@ replace = '__version__ = "{new_version}"'
 
 [tool.ruff]
 select = ["E","F","I","N","UP"]
-line-length = 100
+line-length = 79
+
+[tool.black]
+line-length = 79       # ou 100, 120… selon votre préférence
+target-version = ['py311']
 
 [tool.mypy]
 strict = true
