@@ -32,7 +32,7 @@ jobs:
         run: black . --check --line-length=79
 
       - name: Lint & auto-fix with Ruff
-        run: ruff --exit-zero .
+        run: ruff check . --exit-zero
 
       - name: Type check with mypy
         run: mypy src/trading_framework
