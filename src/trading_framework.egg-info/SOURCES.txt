@@ -1,8 +1,0 @@
-pyproject.toml
-src/trading_framework/__init__.py
-src/trading_framework.egg-info/PKG-INFO
-src/trading_framework.egg-info/SOURCES.txt
-src/trading_framework.egg-info/dependency_links.txt
-src/trading_framework.egg-info/requires.txt
-src/trading_framework.egg-info/top_level.txt
-tests/test_smoke.py
