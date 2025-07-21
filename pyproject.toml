@@ -24,6 +24,19 @@ dependencies = [
 package-dir = {"" = "src"}
 packages = ["trading_framework"]
 
+[tool.bumpversion]
+current_version = "0.1.0"
+commit = true
+tag = true
+
+["tool.bumpversion.file:pyproject.toml"]
+search = 'version = "{current_version}"'
+replace = 'version = "{new_version}"'
+
+["tool.bumpversion.file:src/trading_framework/__init__.py"]
+search = '__version__ = "{current_version}"'
+replace = '__version__ = "{new_version}"'
+
 [build-system]
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
