@@ -7,7 +7,12 @@ nav:
       - Overview: api_overview.md
       - Logging: logging_config.md
       - Main: main_module.md
-
+  - Guide:
+    - Installation: guide/install.md
+    - Quickstart: guide/quickstart.md
+  - Changelog: changelog.md
+  - API: api/
+  
 theme:
   name: material      # si tu as installé mkdocs-material
   palette:

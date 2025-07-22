@@ -12,6 +12,7 @@ __pycache__/
 # Mypy & pytest caches
 .mypy_cache/
 .pytest_cache/
+.ruff_cache/
 
 # Coverage reports
 .coverage
