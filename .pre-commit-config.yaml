@@ -1,10 +1,8 @@
 repos:
-  - repo: https://github.com/psf/black
-    rev: 25.1.0
-    hooks: [{id: black}]
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.12.4
     hooks:
-      - id: ruff-check
-        args: [--fix]
-      - id: ruff-format
+      - id: ruff-format       # formateur unique
+      - id: ruff-check        # lint
+
+# Supprime complètement le bloc psf/black
