@@ -7,12 +7,20 @@ readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.13"
 
+[project.classifiers]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+ 
 dependencies = [
-  "pandas>=2.3,<3",
-  "numpy>=2.3,<3",
-  "loguru>=0.7,<1",
-  "alpaca-trade-api>=3.2,<4",
-  "python-dotenv>=1.1,<2"
+    "pandas>=2.3,<3",
+    "numpy>=2.3,<3",
+    "loguru>=0.7,<1",
+    "alpaca-trade-api>=3.2,<4",
+    "python-dotenv>=1.1,<2"
 ]
 
 [project.optional-dependencies]
@@ -23,14 +31,13 @@ dev = [
     "pytest==8.4.1",
     "pytest-cov==6.2.1",
     "pip-tools==7.4.1",
-    "bump2version==1.0.1",
-    "pip-audit==2.9.0",
     "mkdocs==1.6.1",
     "mkdocs-material==9.6.15"
 ]
 
 [project.scripts]
 run-strategy = "trading_framework.__main__:main"
+
 [tool.setuptools]
 packages = { find = { where = ["src"] } }
 
@@ -76,7 +83,7 @@ disallow_untyped_defs = false
 
 
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools","wheel"]
 build-backend = "setuptools.build_meta"
 
 
