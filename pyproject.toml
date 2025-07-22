@@ -44,9 +44,11 @@ target-version = ['py311']
 
 [tool.ruff]
 line-length = 79
+exclude = ["__pycache__", "build", "dist", ".venv", ".git"]
+
+[tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "C"]
 extend-ignore = ["E203"]
-exclude = ["__pycache__", "build", "dist", ".venv", ".git"]
 
 [tool.mypy]
 ignore_missing_imports = true
