@@ -2,5 +2,24 @@ repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.12.4
     hooks:
-      - id: ruff-format       # format
-      - id: ruff-check        # lint
+      - id: ruff-format
+      - id: ruff-check
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.17.0
+    hooks:
+      - id: mypy
+        name: mypy (type-check all except untyped defs in tests)
+        entry: >
+          mypy --strict
+          --exclude 'tests/.*'
+          src/trading_framework
+        pass_filenames: false
+
+  - repo: local
+    hooks:
+      - id: pytest
+        name: pytest (unit tests)
+        entry: pytest tests/unit --maxfail=1 --disable-warnings -q
+        language: system
+        pass_filenames: false
