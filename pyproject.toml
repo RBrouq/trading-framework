@@ -10,16 +10,27 @@ requires-python = ">=3.13"
 dependencies = [
     "pandas==2.3.1",
     "numpy==2.3.1",
-    "matplotlib==3.10.3",
-    "scipy==1.16.0",
-    "tqdm==4.67.1",
-    "ta==0.11.0",
     "loguru==0.7.3",
-    "joblib==1.5.1",
     "alpaca-trade-api==3.2.0",
     "python-dotenv==1.1.1"
 ]
 
+[project.optional-dependencies]
+dev = [
+    "mypy==1.17.0",
+    "ruff==0.12.4",
+    "pre-commit==4.2.0",
+    "pytest==8.4.1",
+    "pytest-cov==6.2.1",
+    "pip-tools==7.4.1",
+    "bump2version==1.0.1",
+    "pip-audit==2.9.0",
+    "mkdocs==1.6.1",
+    "mkdocs-material==9.6.15"
+]
+
+[project.scripts]
+run-strategy = "trading_framework.__main__:main"
 [tool.setuptools]
 packages = { find = { where = ["src"] } }
 
@@ -68,20 +79,4 @@ disallow_untyped_defs = false
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
-[project.optional-dependencies]
-dev = [
-    "mypy==1.17.0",
-    "ruff==v0.12.4",
-    "pre-commit==4.2.0",
-    "pytest==8.4.1",
-    "pytest-cov==6.2.1",
-    "pip-tools==7.4.1",
-    "pip-autoremove==0.10.0",
-    "bump2version==1.0.1",
-    "pip-audit==2.9.0",
-    "mkdocs==1.6.1",
-    "mkdocs-material==9.6.15"
-]
 
-[project.scripts]
-run-strategy = "trading_framework.__main__:main"
