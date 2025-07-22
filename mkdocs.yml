@@ -1,20 +1,32 @@
 site_name: Trading Framework
 site_url: https://RBrouq.github.io/trading-framework
+repo_url: https://github.com/RBrouq/trading-framework
+edit_uri: edit/main/docs/
 docs_dir: docs
+
 nav:
   - Home: index.md
+  - Guide:
+      - Installation: guide/install.md
+      - Quickstart: guide/quickstart.md
   - API Reference:
       - Overview: api_overview.md
       - Logging: logging_config.md
       - Main: main_module.md
-  - Guide:
-    - Installation: guide/install.md
-    - Quickstart: guide/quickstart.md
   - Changelog: changelog.md
-  - API: api/
-  
+  - Advanced API: api/
+
 theme:
   name: material
   palette:
     primary: 'indigo'
     accent: 'indigo'
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - toc:
+      permalink: true
