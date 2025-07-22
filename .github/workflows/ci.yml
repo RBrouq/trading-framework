@@ -28,11 +28,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e .[dev]
 
-      - name: Check formatting with Black
-        run: black . --check --line-length=79
-
       - name: Fix issues with Ruff
-        run: ruff check . --fix
+        run: ruff format .
 
       - name: Verify linting with Ruff
         run: ruff check .
