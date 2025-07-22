@@ -2,31 +2,36 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Init environment",
+      "label": "Init Environment",
       "type": "shell",
-      "command": "python -m venv .venv && .\\.venv\\Scripts\\Activate.ps1 && pip install -r requirements-dev.txt && pip install .",
+      "command": "python -m venv .venv; .\\.venv\\Scripts\\Activate.ps1; pip install -r requirements-lock.txt; pip install -e .[dev]",
       "problemMatcher": []
     },
     {
-      "label": "Run tests",
+      "label": "Lint & Format (Ruff)",
       "type": "shell",
-      "command": ".\\.venv\\Scripts\\Activate.ps1; pytest -q",
-      "group": "test",
-      "presentation": {
-        "reveal": "always"
-      },
+      "command": ".\\.venv\\Scripts\\Activate.ps1; ruff format . && ruff check .",
       "problemMatcher": []
     },
     {
-      "label": "Lint (flake8)",
+      "label": "Type-check (MyPy)",
       "type": "shell",
-      "command": ".\\.venv\\Scripts\\Activate.ps1; flake8 src tests",
+      "command": ".\\.venv\\Scripts\\Activate.ps1; python -m mypy src --strict",
       "problemMatcher": []
     },
     {
-      "label": "Format (black + isort)",
+      "label": "Run Tests",
       "type": "shell",
-      "command": ".\\.venv\\Scripts\\Activate.ps1; black src tests && isort src tests",
+      "command": ".\\.venv\\Scripts\\Activate.ps1; pytest --cov=src --maxfail=1 -q",
+      "group": { "kind": "test", "isDefault": true },
+      "presentation": { "reveal": "always" },
+      "problemMatcher": []
+    },
+    {
+      "label": "CI (local)",
+      "type": "shell",
+      "command": ".\\.venv\\Scripts\\Activate.ps1; ruff format . && ruff check . && python -m mypy src --strict && pytest --cov=src",
+      "presentation": { "reveal": "always" },
       "problemMatcher": []
     }
   ]

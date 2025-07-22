@@ -2,21 +2,24 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Run Current File",
+      "name": "Python: Run Current File",
       "type": "debugpy",
-      "request": "launch",
       "program": "${file}",
+      "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
+      "justMyCode": true,
       "envFile": "${workspaceFolder}/.env"
     },
     {
-      "name": "Debug Framework",
+      "name": "Python: Debug Framework",
       "type": "debugpy",
       "request": "launch",
       "module": "trading_framework",
-      "justMyCode": true,
+      "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
-      "envFile": "${workspaceFolder}/.env"
+      "justMyCode": true,
+      "envFile": "${workspaceFolder}/.env",
+      "args": []
     }
   ]
 }
