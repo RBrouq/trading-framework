@@ -6,13 +6,6 @@ authors = [{ name = "Richard BROUQUIER", email = "brouquier57@gmail.com" }]
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.13"
-
-[project.urls]
-homepage      = "https://github.com/RBrouq/trading-framework"
-repository    = "https://github.com/RBrouq/trading-framework"
-documentation = "https://RBrouq.github.io/trading-framework/"
-
-[project.classifiers]
 classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.13",
@@ -27,6 +20,11 @@ dependencies = [
     "alpaca-trade-api>=3.2,<4",
     "python-dotenv>=1.1,<2"
 ]
+
+[project.urls]
+homepage      = "https://github.com/RBrouq/trading-framework"
+repository    = "https://github.com/RBrouq/trading-framework"
+documentation = "https://RBrouq.github.io/trading-framework/"
 
 [project.optional-dependencies]
 dev = [
