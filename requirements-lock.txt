@@ -14,28 +14,14 @@ alpaca-trade-api==3.2.0
     # via trading-framework (pyproject.toml)
 attrs==25.3.0
     # via aiohttp
-build==1.2.2.post1
-    # via pip-tools
 certifi==2025.7.14
     # via requests
 charset-normalizer==3.4.2
     # via requests
-click==8.2.1
-    # via pip-tools
 colorama==0.4.6
-    # via
-    #   build
-    #   click
-    #   loguru
-    #   tqdm
-contourpy==1.3.2
-    # via matplotlib
-cycler==0.12.1
-    # via matplotlib
+    # via loguru
 deprecation==2.1.0
     # via alpaca-trade-api
-fonttools==4.59.0
-    # via matplotlib
 frozenlist==1.7.0
     # via
     #   aiohttp
@@ -44,13 +30,7 @@ idna==3.10
     # via
     #   requests
     #   yarl
-joblib==1.5.1
-    # via trading-framework (pyproject.toml)
-kiwisolver==1.4.8
-    # via matplotlib
 loguru==0.7.3
-    # via trading-framework (pyproject.toml)
-matplotlib==3.10.3
     # via trading-framework (pyproject.toml)
 msgpack==1.0.3
     # via alpaca-trade-api
@@ -61,40 +41,20 @@ multidict==6.6.3
 numpy==2.3.1
     # via
     #   alpaca-trade-api
-    #   contourpy
-    #   matplotlib
     #   pandas
-    #   scipy
-    #   ta
     #   trading-framework (pyproject.toml)
 packaging==25.0
-    # via
-    #   build
-    #   deprecation
-    #   matplotlib
+    # via deprecation
 pandas==2.3.1
     # via
     #   alpaca-trade-api
-    #   ta
     #   trading-framework (pyproject.toml)
-pillow==11.3.0
-    # via matplotlib
-pip-tools==7.4.1
-    # via trading-framework (pyproject.toml)
 propcache==0.3.2
     # via
     #   aiohttp
     #   yarl
-pyparsing==3.2.3
-    # via matplotlib
-pyproject-hooks==1.2.0
-    # via
-    #   build
-    #   pip-tools
 python-dateutil==2.9.0.post0
-    # via
-    #   matplotlib
-    #   pandas
+    # via pandas
 python-dotenv==1.1.1
     # via trading-framework (pyproject.toml)
 pytz==2025.2
@@ -103,14 +63,8 @@ pyyaml==6.0.1
     # via alpaca-trade-api
 requests==2.32.4
     # via alpaca-trade-api
-scipy==1.16.0
-    # via trading-framework (pyproject.toml)
 six==1.17.0
     # via python-dateutil
-ta==0.11.0
-    # via trading-framework (pyproject.toml)
-tqdm==4.67.1
-    # via trading-framework (pyproject.toml)
 tzdata==2025.2
     # via pandas
 urllib3==1.26.20
@@ -121,13 +75,7 @@ websocket-client==1.8.0
     # via alpaca-trade-api
 websockets==10.4
     # via alpaca-trade-api
-wheel==0.45.1
-    # via pip-tools
 win32-setctime==1.2.0
     # via loguru
 yarl==1.20.1
     # via aiohttp
-
-# The following packages are considered to be unsafe in a requirements file:
-# pip
-# setuptools
