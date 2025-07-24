@@ -4,6 +4,7 @@
     {
       "name": "Python: Run Current File",
       "type": "debugpy",
+      "request": "launch",
       "program": "${file}",
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
