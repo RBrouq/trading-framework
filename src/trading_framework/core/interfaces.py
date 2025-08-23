@@ -32,7 +32,6 @@ def validate_bars_df(df: pd.DataFrame) -> None:
     if missing:
         raise ValueError(f"Missing columns: {missing}")
 
-    # Pandas 2.x: Series.dt.tz is None for naive datetimes
     if df["ts"].dt.tz is None:
         raise ValueError("'ts' must be timezone-aware (UTC recommended)")
 
