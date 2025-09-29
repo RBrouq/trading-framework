@@ -16,7 +16,7 @@ classifiers = [
 dependencies = [
     "pandas>=2.3,<3",
     "numpy>=2.3,<3",
-    "pandera>=,0.26<1",
+    "alpaca-py>=0.42,<1",
     "loguru>=0.7,<1",
     "alpaca-trade-api>=3.2,<4",
     "python-dotenv>=1.1,<2"
@@ -33,7 +33,6 @@ dev = [
     "ruff==0.12.4",
     "pre-commit==4.2.0",
     "pytest==8.4.1",
-    "pytest-cov==6.2.1",
     "pip-tools==7.4.1",
     "mkdocs==1.6.1",
     "mkdocs-material==9.6.15"

@@ -1,34 +1,13 @@
 from __future__ import annotations
-
-from dataclasses import dataclass
 from enum import Enum
 from typing import NewType
 
-import pandas as pd
-
-"""
-Core types for the trading framework (thin core).
-- Aliases: Symbol, Source
-- Enums: Timeframe, AssetClass (optional but handy)
-- Dataclass: Bar (OHLCV), with light invariants checker
-
-Notes
------
-* All timestamps (`ts`) MUST be timezone-aware in UTC.
-* Prices/volume stored as float for simplicity; can be swapped later to Decimal
-/ints.
-* This module contains no I/O or business logic.
-"""
-
-# ----------------------------- Type aliases ------------------------------ #
+# Aliases (contrat de domaine)
 Symbol = NewType("Symbol", str)
 Source = NewType("Source", str)
 
 
-# ------------------------------- Enums ----------------------------------- #
 class AssetClass(Enum):
-    """High-level asset taxonomy (extend as needed)."""
-
     EQUITY = "equity"
     FUTURES = "futures"
     FX = "fx"
@@ -38,94 +17,89 @@ class AssetClass(Enum):
 
 
 class Timeframe(Enum):
-    """Standardized bar granularities used across the framework."""
-
+    # Ticks & minutes
     TICK = "tick"
     MIN1 = "1Min"
+    MIN2 = "2Min"
     MIN5 = "5Min"
+    MIN10 = "10Min"
     MIN15 = "15Min"
     MIN30 = "30Min"
+    # Hours
     H1 = "1H"
+    H2 = "2H"
     H4 = "4H"
+    H6 = "6H"
+    H8 = "8H"
+    H12 = "12H"
+    # Days / Weeks / Months / Years
     D1 = "1D"
     W1 = "1W"
-    M1 = "1M"
+    M1 = "1M"  # 1 month
+    Q1 = "1Q"  # 1 quarter
+    Y1 = "1Y"  # 1 year
 
     @classmethod
     def from_str(cls, s: str) -> Timeframe:
-        """Parse common aliases and return a normalized Timeframe value.
-
-        Examples
-        --------
-        >>> Timeframe.from_str("1min") is Timeframe.MIN1
-        True
-        >>> Timeframe.from_str("1H") is Timeframe.H1
-        True
-        >>> Timeframe.from_str("1d") is Timeframe.D1
-        True
-        """
+        """Accepte aliases usuels: 1m, 5min, 1h, 1d, 1w, 1mo|1mth, 1q, 1y, etc."""
         key = s.strip().lower()
-        # direct match on enum values
+
+        # valeur exacte (ex: "1min", "1h", "1d"...)
         for tf in cls:
             if key == tf.value.lower():
                 return tf
+
         aliases = {
             "tick": "tick",
             "1m": "1Min",
             "1min": "1Min",
+            "2m": "2Min",
+            "2min": "2Min",
             "5m": "5Min",
             "5min": "5Min",
+            "10m": "10Min",
+            "10min": "10Min",
             "15m": "15Min",
             "15min": "15Min",
             "30m": "30Min",
             "30min": "30Min",
             "1h": "1H",
+            "2h": "2H",
             "4h": "4H",
+            "6h": "6H",
+            "8h": "8H",
+            "12h": "12H",
             "1d": "1D",
             "1w": "1W",
             "1mo": "1M",
             "1mth": "1M",
+            "1month": "1M",
+            "1q": "1Q",
+            "1quarter": "1Q",
+            "1y": "1Y",
+            "1yr": "1Y",
+            "1year": "1Y",
         }
         try:
             return cls(aliases[key])
         except KeyError as e:
             raise ValueError(f"Unknown timeframe alias: {s!r}") from e
 
+    def as_str(self) -> str:
+        """Chaîne canonique pour stockage DataFrame/Parquet."""
+        return self.value
 
-# ------------------------------- Bar ------------------------------------- #
-@dataclass(frozen=True, slots=True)
-class Bar:
-    """Normalized OHLCV bar.
 
-    Invariants
-    ----------
-    * `ts` MUST be a timezone-aware pandas.Timestamp (UTC recommended).
-    * `low <= open, close <= high` must hold.
-    * `volume >= 0`.
-    """
-
-    symbol: Symbol
-    ts: pd.Timestamp
-    open: float
-    high: float
-    low: float
-    close: float
-    volume: float
-    timeframe: Timeframe
-    source: Source | None
-
-    def check_invariants(self) -> None:
-        """Raise ValueError if basic OHLCV invariants are violated."""
-        if self.ts.tzinfo is None:
-            raise ValueError(
-                "Bar.ts must be a timezone-aware (UTC recommended)"
-            )
-        if not (
-            self.low <= self.open <= self.high
-            and self.low <= self.close <= self.high
-        ):
-            raise ValueError(
-                "OHLC invariants violated: expected low <= open, close <= high"
-            )
-        if self.volume < 0:
-            raise ValueError("volume must be >= 0")
+# Schéma minimal recommandé pour stockage
+BAR_COLUMNS = (
+    "ts",
+    "symbol",
+    "timeframe",
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume",
+)
+# Colonnes optionnelles courantes (si dispo)
+BAR_OPTIONAL = ("vwap", "trade_count", "source")

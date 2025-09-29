@@ -51,10 +51,10 @@ class BarReader(Protocol):
     def load(
         self,
         symbol: Symbol,
-        source: Source | None,
         timeframe: Timeframe,
-        start: pd.Timestamp | None,
-        end: pd.Timestamp | None,
+        source: Source | None = None,
+        start: pd.Timestamp | None = None,
+        end: pd.Timestamp | None = None,
     ) -> pd.DataFrame: ...
 
     # The ellipsis `...` means "no implementation here" (interface only).
