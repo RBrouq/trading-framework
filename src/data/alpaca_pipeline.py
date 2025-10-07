@@ -1,7 +1,7 @@
 # trading_framework/data/alpaca_pipeline.py
 import os
 from datetime import datetime, timedelta, timezone
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 import pandas as pd
 from alpaca.data.historical import StockHistoricalDataClient
 from alpaca.data.requests import StockBarsRequest
@@ -36,11 +36,11 @@ def fetch_alpaca_bars(
     feed: str = "iex",
 ) -> pd.DataFrame:
     """Fetch (Alpaca) -> normalize (core). L'appelant ne voit que TF (core)."""
-    load_dotenv()
-    api = os.getenv("ALPACA_API_KEY") or os.getenv("APCA_API_KEY_ID")
-    secret = os.getenv("ALPACA_SECRET_KEY") or os.getenv("APCA_API_SECRET_KEY")
+    load_dotenv(find_dotenv())
+    api = os.getenv("ALPACA_API_KEY")
+    secret = os.getenv("ALPACA_SECRET_KEY")
     if not api or not secret:
-        raise RuntimeError("Clés Alpaca manquantes (.env): ALPACA_* ou APCA_*")
+        raise RuntimeError("SALUT FRERO ALPACA_* ou APCA_*")
 
     end = end or datetime.now(timezone.utc)
     start = start or (end - timedelta(days=5))
